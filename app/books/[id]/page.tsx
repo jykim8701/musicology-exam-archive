@@ -1,85 +1,115 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import booksData from "@/data/books.json";
-
-type BookPageProps = {
-  params: Promise<{ id: string }>;
-};
-
-export const instant = false;
+import { books, getBook } from "@/lib/books";
 
 export function generateStaticParams() {
-  return booksData.map((book) => ({ id: String(book.id) }));
+  return books.map((b) => ({ id: b.id }));
 }
 
-export default async function BookPage({ params }: BookPageProps) {
+function Section({ title, items }: { title: string; items: string[] }) {
+  return (
+    <section className="mt-6">
+      <h2 className="mb-2 text-lg font-bold">{title}</h2>
+      {items.length === 0 ? (
+        <p className="opacity-60">아직 작성 전</p>
+      ) : (
+        <ul className="list-disc space-y-1 pl-5">
+          {items.map((t, i) => (
+            <li key={i}>{t}</li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+export default async function BookPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
-  const book = booksData.find((entry) => entry.id === Number(id));
-
-  if (!book) {
-    notFound();
-  }
-
-  const sections = [
-    { title: "핵심 전제", items: book.premises },
-    { title: "논거", items: book.grounds },
-    { title: "강점", items: book.strengths },
-    { title: "한계점", items: book.limits },
-  ];
+  const book = getBook(id);
+  if (!book) notFound();
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6 md:p-12">
-      <article className="mx-auto max-w-3xl rounded-xl border border-gray-200 bg-white p-6 shadow-sm md:p-10">
-        <Link href="/" className="text-sm font-medium text-indigo-600 hover:underline">
-          &larr; 문헌 목록
-        </Link>
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span className="rounded bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-800">
-            {book.year}년 · #{book.id}
-          </span>
-          <span className="text-sm text-gray-500">{book.category}</span>
-        </div>
-        <h1 className="mt-3 text-3xl font-bold text-gray-900">{book.title}</h1>
-        <Link
-          href={`/authors/${encodeURIComponent(book.author)}`}
-          className="mt-2 inline-block text-indigo-600 hover:underline"
-        >
+    <main className="mx-auto max-w-3xl p-6">
+      <Link href="/" className="text-sm underline">← 목록</Link>
+
+      <h1 className="mt-4 text-2xl font-bold">
+        {book.order}. {book.title}
+      </h1>
+      <p className="opacity-80">
+        <Link href={`/authors/${encodeURIComponent(book.author)}`} className="underline">
           {book.author}
         </Link>
+        {book.coauthors && book.coauthors.length > 0 && (
+          <span> 외 {book.coauthors.join(", ")}</span>
+        )}{" "}
+        · {book.year}
+      </p>
+      {book.note && <p className="mt-1 text-sm opacity-70">{book.note}</p>}
 
-        <section className="mt-8">
-          <h2 className="text-lg font-semibold text-gray-900">핵심 논지</h2>
-          <p className="mt-2 leading-7 text-gray-700">{book.thesis}</p>
-        </section>
-
-        {sections.map(({ title, items }) => (
-          <section key={title} className="mt-8">
-            <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
-            <ul className="mt-2 list-disc space-y-2 pl-5 leading-7 text-gray-700">
-              {items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {book.keywords.map((k) => (
+          <Link
+            key={k}
+            href={`/keywords/${encodeURIComponent(k)}`}
+            className="rounded-full bg-black/10 px-2 py-0.5 text-sm"
+          >
+            #{k}
+          </Link>
         ))}
+      </div>
 
-        <section className="mt-8">
-          <h2 className="text-lg font-semibold text-gray-900">논리적 근거</h2>
-          <p className="mt-2 leading-7 text-gray-700">{book.logicalbasis}</p>
+      {book.summary && (
+        <section className="mt-6">
+          <h2 className="mb-2 text-lg font-bold">요약</h2>
+          <p className="whitespace-pre-wrap">{book.summary}</p>
         </section>
+      )}
 
-        <div className="mt-8 flex flex-wrap gap-2">
-          {book.keywords.map((keyword) => (
-            <Link
-              key={keyword}
-              href={`/keywords/${encodeURIComponent(keyword)}`}
-              className="rounded bg-gray-100 px-2.5 py-1 text-sm text-gray-700 hover:bg-gray-200"
-            >
-              #{keyword}
-            </Link>
-          ))}
-        </div>
-      </article>
+      <Section title="전제" items={book.premises} />
+      <Section title="논리적 근거" items={book.grounds} />
+      <Section title="강점 / 의의" items={book.strengths} />
+      <Section title="한계" items={book.limits} />
+
+      {book.related.length > 0 && (
+        <section className="mt-6">
+          <h2 className="mb-2 text-lg font-bold">연결된 문헌 / 저자</h2>
+          <ul className="list-disc space-y-1 pl-5">
+            {book.related.map((rid) => {
+              const r = getBook(rid);
+              return (
+                <li key={rid}>
+                  {r ? (
+                    <Link href={`/books/${rid}`} className="underline">
+                      {r.title} ({r.author})
+                    </Link>
+                  ) : (
+                    rid
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {book.files && book.files.length > 0 && (
+        <section className="mt-6">
+          <h2 className="mb-2 text-lg font-bold">첨부 자료</h2>
+          <ul className="list-disc space-y-1 pl-5">
+            {book.files.map((f) => (
+              <li key={f.path}>
+                <a href={f.path} target="_blank" className="underline">
+                  {f.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 }
