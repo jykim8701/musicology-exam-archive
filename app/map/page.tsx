@@ -14,7 +14,7 @@ export default function MapPage() {
   const authors = getAuthors();
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pt-8 pb-16 sm:px-6">
+    <main className="mx-auto max-w-5xl px-4 pt-8 pb-16 sm:px-6">
       <p className="text-sm tracking-wider text-accent">TOPIC MAP</p>
       <h2 className="mt-2 font-serif text-[1.9rem] font-bold tracking-wide text-ink">{mapIntro.title}</h2>
       <p className="mt-1 text-[15px] text-muted">{mapIntro.subtitle}</p>

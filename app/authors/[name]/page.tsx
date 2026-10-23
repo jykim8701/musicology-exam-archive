@@ -17,7 +17,7 @@ export default async function AuthorPage({
   if (list.length === 0) notFound();
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pt-8 pb-16 sm:px-6">
+    <main className="mx-auto max-w-5xl px-4 pt-8 pb-16 sm:px-6">
       <Link href="/" className="text-[13px] text-muted hover:text-accent">← 문헌 목록</Link>
       <p className="mt-5 text-sm tracking-wider text-accent">AUTHOR</p>
       <h2 className="mt-2 font-serif text-[1.9rem] font-bold text-ink">{author}</h2>

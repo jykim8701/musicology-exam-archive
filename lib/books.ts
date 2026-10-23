@@ -21,6 +21,7 @@ export type Book = {
   source: "pdf" | "scan" | "none";
   note?: string; // 인라인 HTML (기울임 등)
   summary?: string;
+  thesis?: string; // 핵심 논지 (목록 카드용 평문)
   sections: Section[];
   premises: string[];
   grounds: string[];
@@ -102,6 +103,7 @@ function load(): Book[] {
 
       const names = meta.author.replace(/\s*\([^)]*\)/g, "").split(",").map((s) => s.trim());
       const summary = md("요약");
+      const thesis = md("핵심 논지");
 
       return {
         id,
@@ -119,6 +121,7 @@ function load(): Book[] {
         source: (meta.source || "pdf") as Book["source"],
         note,
         summary: summary && !isEmpty(summary) ? plain(summary) : undefined,
+        thesis: thesis && !isEmpty(thesis) ? plain(thesis) : undefined,
         sections: raw.map((s) => ({
           title: s.title,
           html: isEmpty(s.md) ? "" : linkRefs(marked.parse(s.md) as string, idByNo),

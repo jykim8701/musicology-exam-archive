@@ -48,37 +48,61 @@ export default function BookList({
 
       <p className="mt-5 text-[13px] text-muted">{filtered.length}권 · 출판년도순 (Opera as Drama를 맨 앞에 고정)</p>
 
-      <ul className="mt-3 space-y-3">
+      <ul className="mt-3 grid gap-5 md:grid-cols-2">
         {filtered.map((b) => (
-          <li key={b.id} className="card">
-            <div className="flex items-baseline gap-3">
-              <span className="w-7 shrink-0 text-right font-serif text-sm font-bold text-accent">{b.order}</span>
-              <div className="min-w-0">
-                <Link href={`/books/${b.id}`} className="font-serif text-[17px] font-bold text-ink hover:text-accent">
-                  {b.title}
-                </Link>
-                <div className="mt-1 text-[13px] text-muted">
-                  <Link href={`/authors/${encodeURIComponent(b.author)}`} className="hover:text-accent">
-                    {b.author}
-                  </Link>
-                  {b.coauthors && b.coauthors.length > 0 && <span> 외 {b.coauthors.join(", ")}</span>}
-                  {" · "}
-                  {b.year} · {b.category} · 기존 {b.no}번
-                  {b.source !== "pdf" && <span className="ml-2 text-accent">⚠ 원문 미확인</span>}
-                </div>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {b.keywords.map((k) => (
-                    <Link
-                      key={k}
-                      href={`/keywords/${encodeURIComponent(k)}`}
-                      className="rounded bg-chip px-2 py-0.5 text-xs text-[#5a5650] hover:text-accent"
-                    >
-                      #{k}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+          <li
+            key={b.id}
+            className="flex flex-col rounded-lg border border-line bg-card p-6 shadow-[0_1px_3px_rgb(20_34_49/0.06)]"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <span className="flex items-center gap-2 text-[13px]">
+                <span className="font-serif font-bold text-accent">{b.order}</span>
+                <span className="rounded bg-navy/8 px-2 py-0.5 font-bold text-navy">
+                  {b.year}년 · #{b.no}
+                </span>
+              </span>
+              <Link
+                href={`/authors/${encodeURIComponent(b.author)}`}
+                className="text-right text-[13px] text-navy/80 hover:text-accent"
+              >
+                {b.author}
+                {b.coauthors && b.coauthors.length > 0 && <span className="text-muted"> 외</span>}
+              </Link>
             </div>
+
+            <Link
+              href={`/books/${b.id}`}
+              className="mt-3 font-serif text-[19px] leading-snug font-bold text-ink hover:text-accent"
+            >
+              {b.title}
+            </Link>
+            <p className="mt-1.5 text-[13px] text-muted">
+              {b.category}
+              {b.source !== "pdf" && <span className="ml-2 text-accent">⚠ 원문 미확인</span>}
+            </p>
+
+            {b.thesis && <p className="mt-3 line-clamp-3 text-[14px] leading-7 text-[#45474b]">{b.thesis}</p>}
+
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {b.keywords.slice(0, 5).map((k) => (
+                <Link
+                  key={k}
+                  href={`/keywords/${encodeURIComponent(k)}`}
+                  className="rounded bg-chip px-2 py-0.5 text-xs text-[#5a5650] hover:text-accent"
+                >
+                  #{k}
+                </Link>
+              ))}
+            </div>
+
+            {/* 카드 높이가 달라도 버튼은 항상 맨 아래 */}
+            <div className="flex-1" />
+            <Link
+              href={`/books/${b.id}`}
+              className="mt-5 block rounded-md bg-navy py-2.5 text-center text-[14px] font-bold text-white transition-colors hover:bg-accent"
+            >
+              상세 내용 보기 →
+            </Link>
           </li>
         ))}
       </ul>

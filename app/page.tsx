@@ -8,11 +8,11 @@ export default function Home() {
     id: b.id, no: b.no, order: b.order, pin: b.pin, title: b.title, author: b.author,
     authorLine: b.authorLine, coauthors: b.coauthors, year: b.year, category: b.category,
     keywords: b.keywords, pdfs: b.pdfs, source: b.source, note: b.note,
-    summary: b.summary, searchText: b.searchText,
+    summary: b.summary, thesis: b.thesis, searchText: b.searchText,
   }));
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pt-8 pb-16 sm:px-6">
+    <main className="mx-auto max-w-5xl px-4 pt-8 pb-16 sm:px-6">
       <p className="text-sm tracking-wider text-accent">READING LIST · {books.length}</p>
       <h2 className="mt-2 font-serif text-[1.9rem] font-bold tracking-wide text-ink">문헌 정리</h2>
       <p className="mt-1 text-[15px] text-muted">논지 · 근거 · 강점 · 한계, 그리고 시험 대비 포인트</p>

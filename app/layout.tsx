@@ -49,7 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <header className="bg-navy">
           <div className="relative overflow-hidden">
             <Waves />
-            <div className="relative mx-auto max-w-4xl px-4 py-8 sm:px-6">
+            <div className="relative mx-auto max-w-5xl px-4 py-8 sm:px-6">
               <p className="text-[11px] font-bold tracking-[0.35em] text-white/80">
                 음 악 학 · 종 합 시 험
               </p>
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </div>
           </div>
           <div className="border-t border-white/10">
-            <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <div className="mx-auto max-w-5xl px-4 sm:px-6">
               <Suspense fallback={<TabsFallback />}>
                 <Tabs />
               </Suspense>
