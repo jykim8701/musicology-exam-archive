@@ -4,39 +4,29 @@ import { useState } from "react";
 import Link from "next/link";
 import type { Book } from "@/lib/books";
 
+export type BookListItem = Omit<Book, "sections" | "premises" | "grounds" | "strengths" | "limits">;
+
 export default function BookList({
   books,
   keywords,
 }: {
-  books: Book[];
+  books: BookListItem[];
   keywords: string[];
 }) {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("");
 
   const q = query.trim().toLowerCase();
-  const filtered = books.filter((b) => {
-    const text = [
-      b.title,
-      b.author,
-      ...(b.coauthors ?? []),
-      ...b.premises,
-      ...b.grounds,
-      ...b.strengths,
-      ...b.limits,
-      ...b.keywords,
-    ]
-      .join(" ")
-      .toLowerCase();
-    return (!q || text.includes(q)) && (!tag || b.keywords.includes(tag));
-  });
+  const filtered = books.filter(
+    (b) => (!q || b.searchText.includes(q)) && (!tag || b.keywords.includes(tag)),
+  );
 
   return (
     <div>
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="제목, 저자, 전제, 키워드로 검색"
+        placeholder="제목, 저자, 본문, 키워드로 검색"
         className="w-full rounded border border-gray-400 bg-transparent p-2"
       />
 
@@ -77,7 +67,8 @@ export default function BookList({
               {b.coauthors && b.coauthors.length > 0 && (
                 <span> 외 {b.coauthors.join(", ")}</span>
               )}{" "}
-              · {b.year}
+              · {b.year} · <span className="opacity-80">{b.no}번 · {b.category}</span>
+              {b.source !== "pdf" && <span className="ml-1 text-amber-700 dark:text-amber-400">⚠ 원문 미확인</span>}
             </div>
             <div className="mt-2 flex flex-wrap gap-2">
               {b.keywords.map((k) => (
