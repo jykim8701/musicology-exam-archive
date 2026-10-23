@@ -7,8 +7,9 @@ export type Section = { title: string; html: string };
 
 export type Book = {
   id: string;
-  no: number; // 리딩리스트 번호
-  order?: number; // 출판년도순 번호 (자동 계산)
+  no: number; // 기존 리딩리스트 번호 (본문의 "(23번)" 참조가 가리키는 번호)
+  order: number; // 목록 순서: pin 문헌이 맨 앞, 나머지는 출판년도순 (자동 계산)
+  pin: boolean;
   title: string;
   author: string; // 대표 저자 (저자 페이지 기준)
   authorLine: string; // frontmatter의 author 그대로 (편자·역자 포함)
@@ -18,7 +19,7 @@ export type Book = {
   keywords: string[];
   pdfs: string[];
   source: "pdf" | "scan" | "none";
-  note?: string;
+  note?: string; // 인라인 HTML (기울임 등)
   summary?: string;
   sections: Section[];
   premises: string[];
@@ -84,7 +85,9 @@ function load(): Book[] {
       // 맨 앞 인용문(> ...)은 서지 메모
       const noteMatch = body.match(/^\s*((?:>.*\n?)+)/);
       const note = noteMatch
-        ? noteMatch[1].split("\n").map((l) => l.replace(/^>\s?/, "")).join(" ").trim()
+        ? (marked.parseInline(
+            noteMatch[1].split("\n").map((l) => l.replace(/^>\s?/, "")).join(" ").trim(),
+          ) as string)
         : undefined;
       const rest = noteMatch ? body.slice(noteMatch[0].length) : body;
 
@@ -103,6 +106,8 @@ function load(): Book[] {
       return {
         id,
         no: Number(meta.no),
+        order: 0,
+        pin: meta.pin === "true",
         title: meta.title,
         author: names[0],
         authorLine: meta.author,
@@ -127,7 +132,7 @@ function load(): Book[] {
           .toLowerCase(),
       };
     })
-    .sort((a, b) => a.year - b.year || a.no - b.no)
+    .sort((a, b) => Number(b.pin) - Number(a.pin) || a.year - b.year || a.no - b.no)
     .map((b, i) => ({ ...b, order: i + 1 }));
 }
 
@@ -150,3 +155,13 @@ export const getKeywords = () =>
 
 export const getBooksByKeyword = (tag: string) =>
   getBooks().filter((b) => b.keywords.includes(tag));
+
+export const getCategories = () => Array.from(new Set(getBooks().map((b) => b.category)));
+
+// 지형도의 "Hepokoski", "A. B. Marx" 같은 이름으로 문헌 찾기 (저자·공저자·편자 포함)
+export const getBooksByName = (name: string) => {
+  const surname = name.trim().split(/\s+/).pop()!.toLowerCase();
+  return getBooks().filter((b) =>
+    b.authorLine.toLowerCase().split(/[^\p{L}]+/u).includes(surname),
+  );
+};

@@ -2,7 +2,7 @@
 no: 38
 title: The Classical Style: Haydn, Mozart, Beethoven
 author: Charles Rosen
-year: 1971
+year: 1997
 category: 분석·이론
 keywords: [고전 양식, 양식 비평, 소나타 양식, 극적 성격, 대칭적 해결, 토닉-도미넌트 극성, 하이든, 모차르트, 베토벤]
 pdf: 38. The Classical Style Haydn, Mozart, Beethoven (Expanded Edition) (Charles Rosen).pdf

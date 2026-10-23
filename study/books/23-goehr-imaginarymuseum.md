@@ -2,7 +2,7 @@
 no: 23
 title: The Imaginary Museum of Musical Works: An Essay in the Philosophy of Music
 author: Lydia Goehr
-year: 1992
+year: 2007
 category: 음악미학·철학
 keywords: [작품 개념, 1800년, 규제적 개념, 베토벤 패러다임, 작품 충실성, 분리 가능성 원리, 음악 존재론, 상상의 박물관]
 pdf: 23_Lydia Goehr - The Imaginary Museum of Musical Works_ An Essay in the Philosophy of Music (1994).pdf

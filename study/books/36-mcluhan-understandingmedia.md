@@ -2,7 +2,7 @@
 no: 36
 title: Understanding Media: The Extensions of Man
 author: Marshall McLuhan
-year: 1964
+year: 1994
 category: 사운드 스터디·미디어
 keywords: [매체가 메시지다, 인간의 확장, 뜨거운 매체와 차가운 매체, 지구촌, 감각 비율, 청각 공간, 구술성과 문자성]
 pdf: 36_Marshall McLuhan, Lewis H. Lapham - Understanding Media_ The Extensions of Man (1994, The MIT Press) - libgen.li.pdf

@@ -73,7 +73,9 @@ const books = fs
   .readdirSync(srcDir)
   .filter((f) => f.endsWith(".md"))
   .map((f) => parse(path.join(srcDir, f)))
-  .sort((a, b) => parseFloat(a.no) - parseFloat(b.no));
+  // pin 문헌을 맨 앞에, 나머지는 출판년도순 (lib/books.ts와 같은 규칙)
+  .sort((a, b) => (b.pin === "true") - (a.pin === "true") || a.year - b.year || a.no - b.no)
+  .map((b, i) => ({ ...b, order: i + 1 }));
 
 fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
@@ -86,7 +88,7 @@ books.forEach((b, i) => {
   const pdfs = (b.pdf || "").split("|").map((s) => s.trim()).filter(Boolean);
   const body = `
 <a href="index.html">← 전체 목록</a>
-<p class="meta" style="margin-top:1.5rem">${esc(b.no)} · ${esc(b.category)}</p>
+<p class="meta" style="margin-top:1.5rem">${b.order}번 · ${esc(b.category)} · 기존 ${esc(b.no)}번</p>
 <h1>${esc(b.title)}</h1>
 <p class="meta">${esc(b.author)} · ${esc(b.year)}</p>
 <div class="chips">${kw.map((k) => `<span class="chip">#${esc(k)}</span>`).join("")}</div>
@@ -104,8 +106,8 @@ const index = `
 <ul class="list" id="list">${books
   .map(
     (b) => `<li data-s="${esc([b.title, b.author, b.category, ...(b.keywords || [])].join(" ").toLowerCase())}">
-<span class="no">${esc(b.no)}</span><a href="${b.slug}.html">${esc(b.title)}</a>
-<div class="meta">${esc(b.author)} · ${esc(b.year)} · ${esc(b.category)}${b.source && b.source !== "pdf" ? " · ⚠ 원문 미확인" : ""}</div></li>`,
+<span class="no">${b.order}</span><a href="${b.slug}.html">${esc(b.title)}</a>
+<div class="meta">${esc(b.author)} · ${esc(b.year)} · ${esc(b.category)} · 기존 ${esc(b.no)}번${b.source && b.source !== "pdf" ? " · ⚠ 원문 미확인" : ""}</div></li>`,
   )
   .join("")}</ul>
 <script>

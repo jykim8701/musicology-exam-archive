@@ -17,36 +17,34 @@ export default async function AuthorPage({
   if (list.length === 0) notFound();
 
   return (
-    <main className="mx-auto max-w-3xl p-6">
-      <Link href="/" className="text-sm underline">← 목록</Link>
-      <h1 className="mt-4 text-2xl font-bold">{author}</h1>
+    <main className="mx-auto max-w-4xl px-4 pt-8 pb-16 sm:px-6">
+      <Link href="/" className="text-[13px] text-muted hover:text-accent">← 문헌 목록</Link>
+      <p className="mt-5 text-sm tracking-wider text-accent">AUTHOR</p>
+      <h2 className="mt-2 font-serif text-[1.9rem] font-bold text-ink">{author}</h2>
 
-      <section className="mt-6">
-        <h2 className="mb-2 text-lg font-bold">입장 변화 / 일관성</h2>
-        <p className="whitespace-pre-wrap">
-          {authorNotes[author] ?? "아직 작성 전 (data/authors.json에 추가)"}
-        </p>
-      </section>
+      <h3 className="kicker">입 장 변 화 / 일 관 성</h3>
+      <p className="text-[15px] leading-8 whitespace-pre-wrap">
+        {authorNotes[author] ?? <span className="text-muted">아직 작성 전 (data/authors.json에 추가)</span>}
+      </p>
 
-      <section className="mt-6">
-        <h2 className="mb-2 text-lg font-bold">저작 ({list.length}권, 연도순)</h2>
-        <div className="space-y-4">
-          {list.map((b) => (
-            <div key={b.id} className="rounded border border-gray-400 p-4">
-              <Link href={`/books/${b.id}`} className="font-bold underline">
-                {b.title}
-              </Link>{" "}
-              <span className="text-sm opacity-70">({b.year})</span>
-              <p className="mt-2 text-sm">
-                <b>전제:</b> {b.premises.join(" / ") || "-"}
-              </p>
-              <p className="text-sm">
-                <b>한계:</b> {b.limits.join(" / ") || "-"}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <h3 className="kicker">저 작 ({list.length}권, 연도순)</h3>
+      <div className="space-y-3">
+        {list.map((b) => (
+          <div key={b.id} className="card">
+            <Link href={`/books/${b.id}`} className="font-serif text-[17px] font-bold text-ink hover:text-accent">
+              {b.title}
+            </Link>{" "}
+            <span className="text-[13px] text-muted">({b.year} · {b.order}번 · 기존 {b.no}번)</span>
+            {b.summary && <p className="mt-2 line-clamp-3 text-[14px] leading-7 text-[#4a4c50]">{b.summary}</p>}
+            <p className="mt-2 text-[13px] leading-6">
+              <b className="text-navy">전제</b> <span className="text-muted">{b.premises.join(" / ") || "-"}</span>
+            </p>
+            <p className="text-[13px] leading-6">
+              <b className="text-navy">한계</b> <span className="text-muted">{b.limits.join(" / ") || "-"}</span>
+            </p>
+          </div>
+        ))}
+      </div>
     </main>
   );
 }

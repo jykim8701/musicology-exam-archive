@@ -2,7 +2,7 @@
 no: 42
 title: Free Composition (Der freie Satz). Volume III of New Musical Theories and Fantasies
 author: Heinrich Schenker (trans. and ed. Ernst Oster)
-year: 1935
+year: 1979
 category: 분석·이론
 keywords: [쉥커 이론, 배경·중경·전경, 근본 구조, 우르자츠, 근원선, 연장, 유기체론, 천재론]
 pdf: 42_Heinrich Schenker, Ernst Oster - Free composition_ volume III of New musical theories and fantasies Der freie Satz (2001, Pendragon Press) - libgen.li.pdf

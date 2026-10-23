@@ -2,11 +2,12 @@
 no: 30
 title: Opera as Drama
 author: Joseph Kerman
-year: 2013
+year: 1988
 category: 오페라·음악극
 keywords: [오페라, 드라마, 음악극, 모차르트, 베르디, 바그너, 비평, 형식주의]
 pdf: 30_Joseph Kerman - Opera as Drama-Knopf Doubleday Publishing Group (2013).pdf
 source: pdf
+pin: true
 ---
 
 > 초판 1956, 개정판 1988. 파일은 2013년 전자책판. 제목은 Wagner의 *Oper und Drama*에서 따왔다고 서론에서 밝힌다

@@ -2,7 +2,7 @@
 no: 50
 title: The Oxford History of Western Music (5 vols.)
 author: Richard Taruskin
-year: 2005
+year: 2019
 category: 역사기술·통사
 keywords: [서양음악 통사, 문자 전통, 사회사, 수용사, 메타서사 비판, 절대음악 서사, 신헤겔주의 진보 서사, 모더니즘]
 pdf: 50.1_Richard Taruskin - The Oxford History of Western Music, Volume 1_ The Earliest Notations to the Sixteenth Century-Oxford University Press (2005).pdf | 50.2_Richard Taruskin - The Oxford History of Western Music, Volume 2_ Music in the 17th and 18th Centuries (2008, Oxford University Press) - libgen.li.pdf | 50.3_Richard Taruskin - The Oxford History of Western Music, Volume 3_ Music in the 19th Century (2005, Oxford University Press) - libgen.li.pdf | 50.4_Richard Taruskin - The Oxford History of Western Music, Volume 4_ Music from the Early 20th Century  -Oxford University Press (2005).pdf | 50.5_Richard Taruskin - The Oxford History of Western Music, Volume 5_ Music in the Late 20th Century  -Oxford University Press (2009).pdf

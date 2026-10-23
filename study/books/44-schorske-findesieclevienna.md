@@ -2,7 +2,7 @@
 no: 44
 title: "Fin-de-Siècle Vienna: Politics and Culture"
 author: Carl E. Schorske
-year: 1980
+year: 1981
 category: 근대성·문화사
 keywords: [세기말 빈, 자유주의의 위기, 링슈트라세, 모더니즘, 프로이트, 클림트, 쇤베르크, 코코슈카, 정치와 심리]
 pdf: 44_Carl E. Schorske - Fin-De-Siecle Vienna_ Politics and Culture-Vintage (1980).pdf

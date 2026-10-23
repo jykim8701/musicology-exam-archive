@@ -2,7 +2,7 @@
 no: 16
 title: Music: A Very Short Introduction
 author: Nicholas Cook
-year: 1998
+year: 2021
 category: 음악학 방법론·학문사
 keywords: [음악적 가치, 베토벤 신화, 작품 개념, 상상적 대상, 재현, 음악과 학계, 젠더, 상대주의]
 pdf: 16_[Very Short Introductions №2 2000-jun 15] Cook, Nicholas - Music_ A Very Short Introduction (2000, Oxford University Press) [10.1093_actrade_9780192853820.001.0001] - libgen.li.pdf

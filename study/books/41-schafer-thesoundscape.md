@@ -2,7 +2,7 @@
 no: 41
 title: "The Soundscape: Our Sonic Environment and the Tuning of the World"
 author: R. Murray Schafer
-year: 1977
+year: 1994
 category: 사운드 스터디·미디어
 keywords: [사운드스케이프, 음향 생태학, 기조음, 소리 신호, 사운드마크, 하이파이·로파이, 분열음, 소음, 음향 디자인, 청취 정화]
 pdf: 41_R. Murray Schafer - The Soundscape_ Our Sonic Environment and the Tuning of the World-Destiny Books (1993).pdf
